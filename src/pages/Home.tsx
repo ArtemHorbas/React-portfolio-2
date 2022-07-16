@@ -56,7 +56,9 @@ export const Home: FC = () => {
 		if(!isSearch.current){
 			dispatch(mockData({category, sortBy, order, page}))
 		}
-	
+		
+		window.scrollTo(0, 50)
+
 		isSearch.current = false
 	},[sort, categoryIndex, page])
 

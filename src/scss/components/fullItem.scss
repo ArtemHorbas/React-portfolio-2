@@ -1,0 +1,24 @@
+.full-content{
+	@media (max-width: 1080px) {
+		flex-direction: column-reverse;
+		justify-content: center;
+		align-items: center;
+
+		.full-img{
+			margin-top: 30px;
+		}
+	}
+}
+
+.full-video{
+	width: 680px;
+	height: 380px;
+
+	@media (max-width: 730px) {
+		width: 100%;
+	}
+
+	@media (max-width: 490px) {
+		height: 300px;
+	}
+}
