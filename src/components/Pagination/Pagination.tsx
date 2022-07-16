@@ -18,7 +18,7 @@ export const Pagination: FC = () => {
 		previousLabel="<"
 		onPageChange={(event) => dispatch(setPage(event.selected + 1))}
 		pageRangeDisplayed={4}
-		pageCount={3}
+		pageCount={2}
 		forcePage={page - 1}
   	/>
   )

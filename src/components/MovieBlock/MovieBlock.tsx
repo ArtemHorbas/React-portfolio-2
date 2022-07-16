@@ -10,26 +10,31 @@ export const MovieBlock: FC<Data> = ({id, imageUrl, title, seasons, films, serie
   
 	const dispatch = useAppDispatch()
 	const {items} = useAppSelector(state => state.like)
+	const isAuth = useAppSelector(state => Boolean(state.auth.data))
 
 	const cartItem = items.find(item => item.id === id)
 
 	const onClickAdd = () => {
-		if(cartItem){
-			dispatch(removeItem(id))
-			
+		if(!isAuth){
+			alert('Login to add item to your favourites')
 		}else{
-
-			const item: LikeItem = {
-				id,
-				imageUrl,
-				title,
-				seasons,
-				series,
-				films,
-				description
+			if(cartItem){
+				dispatch(removeItem(id))
+				
+			}else{
+	
+				const item: LikeItem = {
+					id,
+					imageUrl,
+					title,
+					seasons,
+					series,
+					films,
+					description
+				}
+				dispatch(addItem(item))
 			}
-			dispatch(addItem(item))
-		}
+		}		
 	}
 	
 	return (
@@ -38,7 +43,7 @@ export const MovieBlock: FC<Data> = ({id, imageUrl, title, seasons, films, serie
 			<img className=' mb-2 rounded-[93px]' src={imageUrl} alt="click to get more info" />
 			<img className='ml-auto mr-auto mb-4'src="/img/info.png" width={22} alt="" />
 		</Link>
-		<h1 className=' mb-4 text-center text-white font-bold text-[21px]'>{title}</h1>
+		<h1 className='block-title mb-4 text-center text-white font-bold text-[21px]'>{title}</h1>
 		<ul className='pl-2 pb-4 text-white '>
 			<li>{seasons} seasons</li>
 			<li>{series} series</li>

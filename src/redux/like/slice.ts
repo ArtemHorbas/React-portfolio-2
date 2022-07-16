@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { getItemsFromLS } from '../../utils/getItemsFromLS'
 import {  LikeItem, likeSliceType } from './type'
 
+const {items} = getItemsFromLS()
 
 const initialState: likeSliceType = {
-	items: []
+	items
 }
 
 export const likeSlice = createSlice({

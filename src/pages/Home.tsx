@@ -69,7 +69,7 @@ export const Home: FC = () => {
 
 	return (
 			<div className="home">
-				<div className="home-row flex justify-between">
+				<div className="home-row flex justify-between flex-wrap">
 					<div className="home-content ">
 						<Sort />
 						{status === Status.ERROR  

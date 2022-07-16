@@ -30,4 +30,9 @@
 		}
 	  }
 	}
+
+	@media (max-width: 439px) {
+		display: flex;
+		justify-content: center;
+	}
 }	

@@ -1,11 +1,33 @@
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
-import { useAppSelector } from '../redux/store'
+import { logout } from '../redux/auth/slice'
+import { useAppDispatch, useAppSelector } from '../redux/store'
 import { MyInput } from '../UI/MyInput/MyInput'
 
 export const Header: FC = () => {
   
+	const dispatch = useAppDispatch()
+
 	const {items} = useAppSelector(state => state.like)
+	const isAuth = useAppSelector(state => Boolean(state.auth.data))
+
+	const isMounted = React.useRef(false)
+
+	React.useEffect(() => {
+		if(isMounted.current){
+			const json = JSON.stringify(items)
+			localStorage.setItem('like', json)
+		}
+
+		isMounted.current = true
+	},[items])
+
+	const onClickLogout = () => {
+		if(window.confirm('Are you sure about that?')){
+			dispatch(logout())
+			window.localStorage.removeItem('token')
+		}
+	}
 	
 	return (
 	<header className='pb-[3.75rem]'>
@@ -19,14 +41,24 @@ export const Header: FC = () => {
 				</div>
 			</div></Link>
 			<MyInput />
-			<Link to='/like'><div className="header-like py-3 px-8 rounded-3xl bg-purple-500 hover:bg-blue-300 ease-in duration-300">
+			{isAuth ? (
+			<div className='header-unlogin'>
+				<div onClick={onClickLogout} className="button button--black">UNLOGIN</div>
+			</div>
+			) : (
+			<div className="header-auth">
+				<Link to="/login"><div className="button button--black mr-2">LOGIN</div></Link>
+				<Link to="/register"><div className="button ">REGISTER</div></Link>
+			</div>
+			)}	
+			{isAuth && <Link to='/like'><div className="header-like py-3 px-8 rounded-3xl bg-purple-500 hover:bg-blue-300 ease-in duration-300">
 				<ul className=''>
 					<li className='flex gap-1 text-[22px] text-white font-medium'>
 						<span>{items.length}</span>
 						<img src="/img/like.svg" alt="" />
 					</li>
 				</ul>
-			</div></Link>						
+			</div></Link>}					
 		</div>
 					
 	</header>

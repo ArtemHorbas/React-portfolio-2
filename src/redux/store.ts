@@ -4,13 +4,15 @@ import  filter from './filter/slice';
 import  data from './data/slice';
 import like from './like/slice';
 import  fullItem from './fullItem/slice';
+import  auth from './auth/slice';
 
 export const store = configureStore({
   reducer: {
 	filter,
 	data,
 	like,
-	fullItem
+	fullItem,
+	auth
   },
 });
 

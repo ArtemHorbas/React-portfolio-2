@@ -8,7 +8,7 @@ export const LikeContent: FC<LikeItem> = ({id, imageUrl, title, seasons, series,
 	const dispatch = useAppDispatch()
 	
 	return (
-	<div className="like-content--item  flex items-center gap-20">
+	<div className="like-content--item  flex flex-wrap items-center gap-20">
 		<img className='rounded-[13px] ' src={imageUrl} width={136} alt="" />
 		<div className="like-item--title flex flex-col items-center gap-2">
 			<h2 className='font-medium text-2xl'>{title}</h2>
