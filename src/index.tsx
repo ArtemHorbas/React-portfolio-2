@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { store } from './redux/store';
+import './firebase'
 
 
 const container = document.getElementById('root')!;

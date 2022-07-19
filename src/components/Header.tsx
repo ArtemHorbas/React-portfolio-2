@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
-import { logout } from '../redux/auth/slice'
+import { useAuth } from '../hooks/use-auth'
+import { removeUser } from '../redux/auth/slice'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import { MyInput } from '../UI/MyInput/MyInput'
 
@@ -9,7 +10,7 @@ export const Header: FC = () => {
 	const dispatch = useAppDispatch()
 
 	const {items} = useAppSelector(state => state.like)
-	const isAuth = useAppSelector(state => Boolean(state.auth.data))
+	const isAuth = useAuth().isAuth
 
 	const isMounted = React.useRef(false)
 
@@ -24,8 +25,8 @@ export const Header: FC = () => {
 
 	const onClickLogout = () => {
 		if(window.confirm('Are you sure about that?')){
-			dispatch(logout())
-			window.localStorage.removeItem('token')
+			dispatch(removeUser())
+			localStorage.removeItem('token')
 		}
 	}
 	

@@ -23,6 +23,7 @@ export type LoginValues = {
 }
 
 export interface authSliceType {
-	data: null | AuthData
-	status: Status
-}
+	email: null | string
+	token: null | string
+	id: null | string
+} 

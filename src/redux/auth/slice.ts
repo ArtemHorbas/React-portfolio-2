@@ -1,65 +1,32 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Status } from '../data/type'
-import { fetchAuthMe, fetchLogin, fetchRegister } from './asyncFunc'
+import { getItemsFromLS } from '../../utils/getItemsFromLS'
 import { authSliceType } from './type'
 
+const {token} = getItemsFromLS()
 
 const initialState: authSliceType = {
-	data: null,
-	status: Status.FIRST
+	email: null,
+	token,
+	id: null
 }
 
 export const authSlice = createSlice({
 	name: 'auth',
 	initialState,
 	reducers: {
-		logout(state) {
-			state.data = null
-		}
+		setUser(state, action) {
+			state.email = action.payload.email
+			state.token = action.payload.token
+			state.id = action.payload.id
+		},
+		removeUser(state) {
+			state.email = null
+			state.token = null
+			state.id = null
+		},
 	},
-	extraReducers: (builder) => {
-		builder.addCase(fetchRegister.pending, (state) => {
-			state.data = null
-			state.status = Status.LOADING
-		});
-		builder.addCase(fetchRegister.fulfilled, (state, action) => {
-			state.status = Status.SUCCESS
-			state.data = action.payload
-		});
-		builder.addCase(fetchRegister.rejected, (state) => {
-			state.status = Status.ERROR
-			state.data = null
-		});
-		
-		builder.addCase(fetchAuthMe.pending, (state) => {
-			state.data = null
-			state.status = Status.LOADING
-		});
-		builder.addCase(fetchAuthMe.fulfilled, (state, action) => {
-			state.status = Status.SUCCESS
-			state.data = action.payload
-		});
-		builder.addCase(fetchAuthMe.rejected, (state) => {
-			state.status = Status.ERROR
-			state.data = null
-		});
-
-		builder.addCase(fetchLogin.pending, (state) => {
-			state.data = null
-			state.status = Status.LOADING
-		});
-		builder.addCase(fetchLogin.fulfilled, (state, action) => {
-			state.status = Status.SUCCESS
-			state.data = action.payload
-		});
-		builder.addCase(fetchLogin.rejected, (state) => {
-			state.status = Status.ERROR
-			state.data = null
-		});
-
-	}
 })
 
-export const { logout } = authSlice.actions
+export const { setUser, removeUser } = authSlice.actions
 
 export default authSlice.reducer

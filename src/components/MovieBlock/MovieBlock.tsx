@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../../hooks/use-auth'
 import { Data } from '../../redux/data/type'
 import { addItem, removeItem } from '../../redux/like/slice'
 import { LikeItem } from '../../redux/like/type'
@@ -10,7 +11,7 @@ export const MovieBlock: FC<Data> = ({id, imageUrl, title, seasons, films, serie
   
 	const dispatch = useAppDispatch()
 	const {items} = useAppSelector(state => state.like)
-	const isAuth = useAppSelector(state => Boolean(state.auth.data))
+	const isAuth = useAuth().isAuth
 
 	const cartItem = items.find(item => item.id === id)
 
